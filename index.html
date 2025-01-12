@@ -242,8 +242,8 @@
                         </div>
                         <div class="d-flex mb-3" style="width: 100%; display: flex;">
                             <label for="invoice_date" class="form-label" style="width: 110px; font-size: 16px;">Invoice Date:</label>
-                            <input type="date" class="form-control" id="invoice_date" name="invoice_date"
-                                style="width: 200px; font-size: 16px;">
+                            <input type="text" class="form-control" id="invoice_date" name="invoice_date"
+                                style="width: 200px; font-size: 16px;" placeholder="dd/mm/yyyy">
                         </div>
                     </div>
 
@@ -270,8 +270,9 @@
                             <input type="text" class="form-control" style="font-size: 16px;" id="po_no" name="po_no" style="width: 200px;">
                         </div>
                         <div class="d-flex mb-3" style="display: flex;">
-                            <label for="po_date" class="form-label" style="width: 110px; font-size: 16px;">P.O.Date:</label>
-                            <input type="date" class="form-control" id="po_date" name="po_date" style="width: 200px; font-size: 16px;">
+                            <label for="po_date" class="form-label" style="width: 110px; font-size: 16px;">P.O. Date:</label>
+                            <input type="text" class="form-control" id="po_date" name="po_date"
+                                style="width: 200px; font-size: 16px;" placeholder="dd/mm/yyyy">
                         </div>
                     </div>
                 </td>
@@ -516,55 +517,7 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td
-                        style=" text-align: center; font-size: 16px; border-right: 1px solid black; border-bottom: 1px solid black; padding: 3px 0px;">
-                        9</td>
-                    <td style=" text-align: left; padding: 3px 0px 3px 5px; border-right: 1px solid black; border-bottom: 1px solid black;">
-                        <!-- <input type="text" class="form-control inputentry" name="description[]"> -->
-                        <textarea type="text" rows="3" style="width: 99%; font-size: 16px;" class="form-control inputentry" name="description[]"></textarea>
-                    </td>
-                    <td style=" text-align: center; padding: 3px 3px; border-right: 1px solid black; border-bottom: 1px solid black;">
-                        <input type="text" class="form-control inputentry" style="font-size: 16px;" name="hsn_code[]"
-                            >
-                    </td>
-                    <td style=" text-align: center; padding: 3px 3px; border-right: 1px solid black; border-bottom: 1px solid black;">
-                        <input type="number" class="form-control inputentry" style="font-size: 16px;" name="quantity[]"
-                            onchange="updateAmount(this)" >
-                    </td>
-                    <td style=" text-align: center; padding: 3px 3px; border-right: 1px solid black; border-bottom: 1px solid black;">
-                        <input type="number" class="form-control inputentry" style="font-size: 16px;" name="rate[]" onchange="updateAmount(this)"
-                             >
-                    </td>
-                    <td style=" text-align: center; padding: 3px 3px; border-bottom: 1px solid black;">
-                        <input type="text" class="form-control inputentry" style="font-size: 16px;" name="amount[]" readonly 
-                            >
-                    </td>
-                </tr>
-
-                <tr>
-                    <td style=" text-align: center; font-size: 16px; border-right: 1px solid black; padding: 3px 0px;">10</td>
-                    <td style=" text-align: left; padding: 3px 0px 3px 5px; border-right: 1px solid black;">
-                        <!-- <input type="text" class="form-control inputentry" name="description[]"> -->
-                        <textarea type="text" rows="3" style="width: 99%; font-size: 16px;" class="form-control inputentry" name="description[]"></textarea>
-                    </td>
-                    <td style=" text-align: center; padding: 3px 3px; border-right: 1px solid black;">
-                        <input type="text" class="form-control inputentry" style="font-size: 16px;" name="hsn_code[]"
-                            >
-                    </td>
-                    <td style=" text-align: center; padding: 3px 3px; border-right: 1px solid black;">
-                        <input type="number" class="form-control inputentry" style="font-size: 16px;" name="quantity[]"
-                            onchange="updateAmount(this)" >
-                    </td>
-                    <td style=" text-align: center; padding: 3px 3px; border-right: 1px solid black;">
-                        <input type="number" class="form-control inputentry" style="font-size: 16px;" name="rate[]" onchange="updateAmount(this)"
-                             >
-                    </td>
-                    <td style=" text-align: center; padding: 3px 3px;">
-                        <input type="text" class="form-control inputentry" style="font-size: 16px;" name="amount[]" readonly 
-                            >
-                    </td>
-                </tr>
+                
                 
             </tbody>
         </table>
@@ -655,13 +608,6 @@
                                 0.00</td>
                         </tr>
                         <tr>
-                            <th
-                                style="text-align: left;  padding: 5px 0px 5px 10px; border-right: 1px solid black; border-bottom: 1px solid black;">
-                                Round Off : </th>
-                            <td id="roundOff" style="border-bottom: 1px solid black; padding: 5px 0px 5px 10px;">
-                                0.00</td>
-                        </tr>
-                        <tr>
                             <th class="fw-bold"
                                 style="text-align: left;  padding: 5px 0px 5px 10px; border-right: 1px solid black; border-bottom: 1px solid black;">
                                 Invoice Total :</th>
@@ -693,6 +639,42 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="scripts.js"></script>
+
+
+<script>
+    // Function to validate and format date in dd/mm/yyyy
+    function validateAndFormatDate(input) {
+        const datePattern = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/; // dd/mm/yyyy
+        const value = input.value.trim();
+        
+        if (!datePattern.test(value)) {
+            alert("Please enter a valid date in dd/mm/yyyy format.");
+            input.value = ''; // Clear invalid input
+            return false;
+        }
+
+        // Convert to proper Date object for further processing if needed
+        const [day, month, year] = value.split('/').map(Number);
+        const date = new Date(year, month - 1, day);
+        
+        if (date.getDate() !== day || date.getMonth() !== month - 1 || date.getFullYear() !== year) {
+            alert("Invalid date. Please enter a valid date in dd/mm/yyyy format.");
+            input.value = ''; // Clear invalid input
+            return false;
+        }
+
+        return true;
+    }
+
+    // Add event listeners for validation
+    document.getElementById('invoice_date').addEventListener('blur', function () {
+        validateAndFormatDate(this);
+    });
+
+    document.getElementById('po_date').addEventListener('blur', function () {
+        validateAndFormatDate(this);
+    });
+</script>
 
 </body>
 
